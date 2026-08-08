@@ -1,0 +1,6 @@
+# .gitignore
+
+.env
+urls.txt
+test.py
+weather_ref.py
