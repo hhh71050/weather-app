@@ -32,12 +32,28 @@ OPENWEATHER_API_KEY=your_api_key_here
 
 ## Usage
 
+You can provide a city name as a command-line argument:
+
 ```bash
 python weather.py "London"
 python weather.py "New York" --imperial
 ```
 
+You can also run the app without arguments and type the city name directly when prompted:
+
+```bash
+python weather.py
+```
+
 If multiple cities match the provided name, the script asks you to choose the correct one.
+
+> If the city contains an apostrophe, use quotes in the terminal, for example:
+>
+> ```bash
+> python weather.py "Lu'an"
+> ```
+>
+> The shell treats an apostrophe as a quote character, so it must be protected when passing the city name on the command line.
 
 ## Notes
 
