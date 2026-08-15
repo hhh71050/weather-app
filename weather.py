@@ -1,9 +1,7 @@
-import argparse
-import json
 import requests
-from pathlib import Path
 import os
 from dotenv import load_dotenv
+import argparse
 
 
 load_dotenv()
@@ -28,7 +26,10 @@ def read_user_cli_args():
         description="gets weather informations for a city"
     )
     parser.add_argument(
-        "city", nargs="+", type=str, help="enter the city name"
+        "city",
+        nargs="*",
+        type=str,
+        help='enter the city name; if the name contains an apostrophe, you can also type it at the prompt when no city is provided',
     )
     parser.add_argument(
         "-i",
@@ -120,7 +121,14 @@ def display_weather_info(weather_data, imperial=False):
 
 def main():
     user_args = read_user_cli_args()
-    city = " ".join(user_args.city)
+
+    if not user_args.city:
+        city = input("Enter city name: ").strip()
+        if not city:
+            raise SystemExit("City name cannot be empty.")
+    else:
+        city = " ".join(user_args.city)
+
     lat, lon = get_geocoding(city)
     print(f"Selected location: lat {lat}, lon {lon}")
     weather_data = get_weather_data(lat, lon, user_args.imperial)
